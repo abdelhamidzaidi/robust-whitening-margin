@@ -9,8 +9,8 @@ make_figures.py -- Figures 1-5 of the manuscript, from the result files of the r
 
 Plotting conventions (identical in all figures): each method has its own colour, used in every
 figure and for no other purpose: MMRW magenta, MNP-first blue, PC orange, PDC green, SOBI grey.
-Other curves use colours of their own: black, dark red and brown for the acceptance tests of
-Figure 1, and red and black for the two sample sizes of Figure 5. Data points are small dots of the same colour as their line.
+Other curves: in Figure 1, which shows only MMRW, the acceptance tests are black, red and blue;
+in Figure 5, and red and black for the two sample sizes of Figure 5. Data points are small dots of the same colour as their line.
 Probabilities are shown with 95% Wilson intervals (wilson.py); points of different
 methods are shifted slightly along the x axis so that the error bars do not overlap.
 """
@@ -114,8 +114,8 @@ fig.tight_layout(); fig.savefig('fig_exact_bounds.pdf'); fig.savefig('fig_exact_
 # Row layout of res_*.pkl: x = (truepd, lambda_min(A), lambda_min(hat A), werr, eps, hat eps).
 Te = [500, 1000, 2000, 5000, 10000, 20000, 50000, 100000]
 fig, ax = plt.subplots(1, 2, figsize=(6.8, 2.8), sharey=True)
-spec = [('oracle', 'test with true error $\\varepsilon(\\hat\\alpha)$', '#000000', '-', 'o', 1/1.05), ('c1', 'split-half screen, $c=1$', '#8B0000', '--', 'o', 1.0),
-        ('c2', 'split-half screen, $c=2$', '#8C510A', '-.', 'o', 1.05), ('fa', 'false acceptance (screen, $c=1$)', '#8B0000', ':', 'o', 1.0)]
+spec = [('oracle', 'test with true error $\\varepsilon(\\hat\\alpha)$', '#000000', '-', 'o', 1/1.05), ('c1', 'split-half screen, $c=1$', '#E41A1C', '--', 'o', 1.0),
+        ('c2', 'split-half screen, $c=2$', '#1F4FFF', '-.', 'o', 1.05), ('fa', 'false acceptance (screen, $c=1$)', '#E41A1C', ':', 'o', 1.0)]
 for j, K in enumerate([10, 6]):
     vals = {k: [] for k, *_ in spec}
     for T in Te:
