@@ -20,7 +20,9 @@ for T in [1000, 5000, 20000]:
         Ah = sample_matrices(simulate(md, T, rng), K)             # hat A_k (Section 4)
         acc += np.array([np.linalg.norm(a-b, 'fro')**2 for a, b in zip(Ah, A)])   # ||E_k||_F^2
     emp = acc/R                                                   # Monte Carlo E||E_k||_F^2
-    # Lemma 3 bound (symmetrization does not increase the Frobenius norm)
+    # Lemma 3 bound for lag tau_k (symmetrization does not increase the Frobenius norm);
+    # the common bound max_k (p+1) S_X/(T - tau_k) = (p+1) S_X/(T - tau_K) bounds every k,
+    # and the ratio column is max_k of E||E_k||_F^2 divided by its own bound (Table 2 caption)
     bnd = np.array([(P+1)*S/(T-t) for t in range(1, K+1)])
-    print('T=%6d  max_k E||E_k||_F^2 = %.3e  bound = %.3e  ratio = %.2f  T*E = %.2f'
-          % (T, emp.max(), bnd.min(), (emp/bnd).max(), emp.max()*T))
+    print('T=%6d  max_k E||E_k||_F^2 = %.3e  common bound = %.3e  max_k ratio = %.2f  T*E = %.2f'
+          % (T, emp.max(), bnd.max(), (emp/bnd).max(), emp.max()*T))

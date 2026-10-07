@@ -1,36 +1,47 @@
 # Code and results for "Finite-Sample Guarantees for Robust Whitening"
 
-Repository: https://github.com/abdelhamidzaidi/robust-whitening-margin
-
-Archived version (v1.0): [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23024127.svg)](https://doi.org/10.5281/zenodo.23024127)
-
-Appendix G of the manuscript lists every function of this repository, its purpose and its link to the paper.
+Python code and stored simulation results that reproduce every table and figure of the manuscript
+*"Finite-Sample Guarantees for Robust Whitening: The Margin of a Positive Definite Combination of
+Lagged Covariance Matrices"* (A. T. Zaidi). Appendix G of the manuscript lists every function of this
+repository, its purpose and its link to the paper; Appendix F gives seeds, grids and the rules for
+failed or capped runs.
 
 ## Contents
-- `*.py`           the code (Appendix G, Table 9 lists what each file does)
-- `run_all.py`     reruns every simulation (any system; `run_all.sh` does the same on macOS/Linux) and regenerates every table and figure (about 1.5 h on one core)
-- `results.zip`    the stored result files (.pkl) used for the manuscript, and `tables_output.txt`,
-                   the printed output of make_tables.py. Unzip it to obtain the folder `results/`
-                   (on Windows: right-click > Extract All, then keep the folder name `results`).
-- `requirements.txt` exact library versions (Python 3.12.3)
+| File | Role |
+|---|---|
+| `core.py` | the three algorithms: MNP (Algorithms 1 and 4), PC (Algorithm 2), PDC (Algorithm 3) |
+| `model.py` | BSS model of Section 2, population matrices (2), estimators of Section 4 |
+| `sep.py`, `wilson.py` | joint diagonalization and Amari index; Wilson intervals |
+| `table2_lemma3.py`, `gamma_s.py` | Table 2; source margins of Section 6.1 |
+| `sec6_runs.py`, `exact_families.py`, `sec7_runs.py`, `robust_runs.py`, `remarks_pdc.py` | simulations of Sections 6 and 7 |
+| `make_tables.py`, `make_figures.py` | Tables 3-7 and Figures 1-5 from the stored results |
+| `run_all.py` (`run_all.sh`) | runs everything in order |
+| `results.zip` | stored result files (.pkl) used in the manuscript, and `tables_output.txt` |
+| `requirements.txt` | exact library versions (Python 3.12.3) |
 
-## First, a five-minute installation test
-       pip install -r requirements.txt
-       python run_all.py --smoke      # tiny sample sizes; checks that everything runs
+## Quick start
+    pip install -r requirements.txt
+    python run_all.py --smoke          # five-minute installation test (tiny sample sizes)
 
-## Two ways to use the archive
-1. Regenerate the tables and figures from the stored results (a few minutes):
-       pip install -r requirements.txt
-       (unzip results.zip first)
-       cd results
-       python ../make_tables.py > tables_check.txt     # compare with tables_output.txt
-       python ../make_figures.py                         # writes fig_*.pdf
-2. Rerun the simulations from scratch (about 1.5 h):
-       python run_all.py        # Windows, macOS or Linux
-       sh run_all.sh            # alternative on macOS or Linux
+## Reproduce the tables and figures from the stored results (a few minutes)
+Unzip `results.zip` (on Windows: right-click > Extract All); this gives the folder `results`. Then:
 
-All random numbers come from fixed seeds (Appendix F), so option 2 reproduces the stored
-results exactly on the same software versions; computing times vary between computers.
+    cd results
+    python ../make_tables.py > tables_check.txt     # identical to tables_output.txt
+    python ../make_figures.py                         # writes fig_*.pdf
+    cd ..
+    python table2_lemma3.py                           # Table 2 (a few minutes)
 
-Verification: from a clean copy, a complete rerun reproduced all 141 stored result files
-value by value (apart from computing times) and every line of results/tables_output.txt.
+## Rerun every simulation from scratch (about 1.5 hours on one core)
+    python run_all.py              # Windows, macOS or Linux
+    sh run_all.sh                  # alternative on macOS or Linux
+
+All random numbers come from fixed seeds, so a complete rerun reproduces the stored results
+exactly with the library versions of `requirements.txt`; only computing times vary.
+A complete rerun from a clean copy reproduced all 141 stored result files value by value.
+
+## Citation
+See `CITATION.cff`. The archived version of this repository has a permanent DOI on Zenodo.
+
+## License
+MIT (see `LICENSE`).

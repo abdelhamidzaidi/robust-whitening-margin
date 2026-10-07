@@ -43,10 +43,10 @@ def psi_weights(a, L=4000):
 
 
 def acov(a, H, L=4000):
-    """Exact autocovariances rho(h) = sum_j psi_j psi_{j+h}, h = 0..H, of the AR
-    process with unit innovation variance (Section 6.1, 'computed from the MA(inf)
-    representation'). The truncation at L = 4000 terms is far below machine
-    precision for the pole radii used (<= 0.9)."""
+    """Autocovariances rho(h) = sum_j psi_j psi_{j+h}, h = 0..H, of the AR process with
+    unit innovation variance, evaluated numerically from the MA(inf) representation
+    truncated after L = 4000 terms (Section 6.1); for pole radii <= 0.9 the omitted tail
+    is below machine precision."""
     psi = psi_weights(a, L)
     return np.array([np.dot(psi[:L-h], psi[h:]) for h in range(H+1)])
 
@@ -162,6 +162,8 @@ def pdc(As, maxit=100000, alpha0=None, sigma=1.0):
     G = Amat.T @ Amat                                       # Gram matrix <A_k, A_l>
     proj = lambda C: np.linalg.solve(G, Amat.T @ C.ravel()) # coefficients of P_E(C)
     a = np.array([np.trace(A) for A in As]) if alpha0 is None else alpha0.copy()
+    if not np.any(a):                                       # Algorithm 3 requires alpha_0 != 0
+        raise ValueError('pdc: the starting vector alpha_0 must be nonzero')
     B = np.tensordot(a, Astack, 1)
     lam, U = np.linalg.eigh(B)
     # initial transformation of [5]: scale by e*sigma/mu, with mu the smallest
