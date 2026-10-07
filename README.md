@@ -1,12 +1,17 @@
 # Code and results for "Finite-Sample Guarantees for Robust Whitening"
 
+Repository: https://github.com/abdelhamidzaidi/robust-whitening-margin
+
+Archived version (v1.0): [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23024127.svg)](https://doi.org/10.5281/zenodo.23024127)
+
 Appendix G of the manuscript lists every function of this repository, its purpose and its link to the paper.
 
 ## Contents
 - `*.py`           the code (Appendix G, Table 9 lists what each file does)
 - `run_all.py`     reruns every simulation (any system; `run_all.sh` does the same on macOS/Linux) and regenerates every table and figure (about 1.5 h on one core)
-- `results/`       the stored result files (.pkl) used for the manuscript, and `tables_output.txt`,
-                   the printed output of make_tables.py
+- `results.zip`    the stored result files (.pkl) used for the manuscript, and `tables_output.txt`,
+                   the printed output of make_tables.py. Unzip it to obtain the folder `results/`
+                   (on Windows: right-click > Extract All, then keep the folder name `results`).
 - `requirements.txt` exact library versions (Python 3.12.3)
 
 ## First, a five-minute installation test
@@ -16,6 +21,7 @@ Appendix G of the manuscript lists every function of this repository, its purpos
 ## Two ways to use the archive
 1. Regenerate the tables and figures from the stored results (a few minutes):
        pip install -r requirements.txt
+       (unzip results.zip first)
        cd results
        python ../make_tables.py > tables_check.txt     # compare with tables_output.txt
        python ../make_figures.py                         # writes fig_*.pdf

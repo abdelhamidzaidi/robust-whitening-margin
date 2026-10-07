@@ -6,6 +6,6 @@ authors:
     given-names: Abdelhamid Taieb
     affiliation: "Department of Mathematics, College of Science, Qassim University"
 version: "1.0"
-repository-code: "https://github.com/YOUR-USERNAME/robust-whitening-margin"
+repository-code: "https://github.com/abdelhamidzaidi/robust-whitening-margin"
 license: MIT
-doi: "10.5281/zenodo.23024127"   # to be replaced by the DOI assigned at deposit
+doi: "10.5281/zenodo.23024127"
